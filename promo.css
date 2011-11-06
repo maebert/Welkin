@@ -1,0 +1,151 @@
+
+
+body { -webkit-transform: translateZ(0); 
+    margin: 0px;
+} /* iOS optimization */
+
+
+.animated {
+	-webkit-animation: 1s ease;
+	-moz-animation: 1s ease;
+	-ms-animation: 1s ease;
+	-o-animation: 1s ease;
+	animation: 1s ease;
+}
+
+.animated.hinge {
+	-webkit-animation: 2s ease;
+	-moz-animation: 2s ease;
+	-ms-animation: 2s ease;
+	-o-animation: 2s ease;
+	animation: 2s ease;
+}
+
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
+@-webkit-keyframes wobble {
+  0% { -webkit-transform: translateX(0%); }
+  15% { -webkit-transform: translateX(-25%) rotate(-5deg); }
+  30% { -webkit-transform: translateX(20%) rotate(3deg); }
+  45% { -webkit-transform: translateX(-15%) rotate(-3deg); }
+  60% { -webkit-transform: translateX(10%) rotate(2deg); }
+  75% { -webkit-transform: translateX(-5%) rotate(-1deg); }
+  100% { -webkit-transform: translateX(0%); }
+}
+
+
+
+.wobble {
+	-webkit-animation-name: wobble;
+}
+@-webkit-keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+@-webkit-keyframes fadeInLeft {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateX(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: translateX(0);
+	}
+}
+
+
+@keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fadeInDown {
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+}
+.fadeInLeft {
+	-webkit-animation-name: fadeInLeft;
+	animation-name: fadeInLeft;
+}
+
+#promo {
+  font-family: Helvetica;
+  margin-top: 100px;
+}
+
+#promo form {
+  margin: 0px;
+}
+
+#promo h1 {
+  -webkit-animation-name: fadeInLeft;
+  font-size: 30px;
+  background-color: #ce49c8;
+  color: #fff;
+  padding: 10px;
+  width: 550px;
+  text-align: right;
+  -webkit-transition: background-color 1s ease, width 1s ease;
+  transition: background-color 1s ease, width 1s ease;
+  letter-spacing: 1px;
+}
+
+#promo h1:hover {
+    width: 570px;
+    background-color: #fa24ee;
+}
+#promo h1:hover input {
+    background-color: #ecceec;
+    color: #fa24ee;
+}
+
+#promo input[type='text'] {
+    font-family: Helvetica;
+  border: 0px;
+  padding: 10px;
+  outline: none;
+  margin: 0px;
+  color: white;
+  font-size: 30px;
+  width: 200px;
+  background-color: #ce49c8;
+  font-weight: bold;
+  margin-left: 10px;
+  -webkit-transition: background-color 1s ease, color 1s ease;
+  transition: background-color 1s ease, width 1s ease;
+}
+
+#promo input[type='submit'] {
+  border: 0px;
+  font-size: 18px;
+  background-color: #7bc10f ;
+  text-shadow: 0px 0px 4px #ddd;
+  color: #fff;
+  padding: 10px;
+  width: 400px;
+  text-align: right;  
+  -webkit-transition: background-color 1s ease, width 1s ease;
+  transition: background-color 1s ease, width 1s ease;
+
+}
+
+#promo input[type='submit']:hover {
+    width: 420px;
+    background-color: #94f400;
+    cursor: pointer;
+}

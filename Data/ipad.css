@@ -1,0 +1,327 @@
+canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#interaction_pane {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 999;
+}
+
+div.object {
+    position: absolute;
+}
+
+
+.fadeInOutBottom {
+	-webkit-animation: 1.2s linear;
+	-webkit-animation-name: fadeInOutBottom;
+}
+@-webkit-keyframes fadeInOutBottom {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(+20px) scale(.5) rotate(35deg);
+	}
+	
+	50% {
+		opacity: 1;
+		-webkit-transform: translateY(0) scale(1) rotate(0deg);
+	}
+	100% {
+		opacity: 0;
+		-webkit-transform: translateY(-20px) scale(.5) rotate(-15deg);
+	}
+}
+
+.warp {
+	-webkit-animation: 1.1s ease;
+	-webkit-animation-name: warp;
+}
+@-webkit-keyframes warp {
+	0% {
+		opacity: 1;
+		-webkit-transform: scaleX(1) scaleY(1) translateY(0px);
+	}
+	
+	50% {
+		opacity: 0;
+		-webkit-transform: scaleX(.1) scaleY(1.5) translateY(-40px);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: scaleX(1) scaleY(1) translateY(0px);
+	}
+}
+
+
+div#screen_fader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1010;
+    opacity: .8;
+    background-color: #000;
+    width: 1024px;
+    height: 768px;
+}
+
+div.screen {
+    width: 600px;
+    height: 340px;
+    position: absolute;
+    left: 162px;
+    top: 100px;
+    background-color: rgba(0,0,0,.5);
+    border: 8px solid rgba(255,255,255,.4);
+    z-index: 1011;
+    font-family: "Arial Black", Arial;
+    -webkit-border-radius: 20px;
+    -webkit-box-shadow: inset 0px 0px 50px #000, 0px 0px 50px #666;
+}
+
+div.screen h1 {
+
+    text-shadow: 3px 3px 0px #555;
+    font-size: 60px;
+    letter-spacing: -8px;
+    color: #ccc;
+    margin: 80px 20px 20px 40px;
+
+}
+
+div.screen h2 {
+    text-shadow: 3px 3px 0px #777;
+    font-size: 40px;
+    letter-spacing: -4px;
+    margin: -40px 0px 40px 40px;
+    color: #933;
+}
+
+
+div.screen p {
+    text-shadow: 2px 2px 0px #777;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: -2px;
+    color: white;
+    margin: 20px 20px 20px 80px;
+}
+
+div.story img {
+    position: absolute;
+    left: -18px;
+    bottom: -20px;
+    display: block;
+    margin-left: -10px;
+}
+
+div.screen div.button_next {
+    float: right;
+    background: url(Themes/next.png) center center no-repeat rgba(255,255,255,.4);
+    height: 100%;
+    width: 100px;
+    -webkit-border-bottom-right-radius: 11px;
+    -webkit-border-top-right-radius: 11px;
+    -webkit-box-shadow: inset -2px 0px 20px #444;
+}
+
+div.screen_inner {
+    float: left;
+    width: 500px;
+}
+
+div.screen div.button_next:hover {
+    background-color: rgba(255,255,255,.8);
+    cursor: pointer;
+}
+
+div.button_menu {
+    width: 120px;
+    text-align: center;
+    margin: 0px 0px 20px 20px;
+    background-color: rgba(255,255,255,.4);    
+    border: 2px solid rgba(128,128,128,.6);
+    
+    padding: 6px 0px 6px 0px;
+    font-family: "Arial Black", Arial;
+    -webkit-border-radius: 6px;
+    -webkit-box-shadow: inset 2px 2px 20px #000;
+    
+    color: #ccc;
+    text-shadow: 1px 1px 1px #555;
+}
+
+div.button_menu {
+    float: left;
+}
+
+div.button_menu:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(255,255,255,.8);
+}
+    
+div.button_again {
+    background-color: rgba(200,255,200,.4);    
+    border: 2px solid rgba(100,128,100,.6);
+    float: right;
+
+}
+
+div.button_again:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(200,255,200,.8);    
+    border: 2px solid rgba(100,128,100,.6);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.widget {
+    position: absolute;
+    z-index: 1000;
+    width: 100px;
+    padding: 5px;
+    border: 5px solid rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.2);
+    -webkit-border-radius: 8px;
+    color: #888;
+    font-family: Maven Pro;
+    font-size: 10px;
+}
+
+div.widget label {
+    font-family: Maven Pro;
+    color: white;
+    display: inline-block;
+    width: 50px;
+    font-size: 9px;
+}
+
+div#levelprops, div#objectprops {
+    width: 200px;
+}
+
+div#console {
+    width: 400px;
+    left: 150px;
+}
+
+#palette.ui-draggable-dragging { opacity: .3; }
+
+div.widget div.toggle, div.widget input[type='button']  {
+    width: 92px;
+    border: 1px solid rgba(255,255,255,.5);
+    background: rgba(0,0,0,.2);
+    -webkit-border-radius: 6px;
+    text-align: center;
+    padding: 4px;
+    margin-bottom: 5px;
+    color: white;
+    font-family: "Maven Pro";
+    font-size: 11px;
+    cursor: pointer;
+}
+
+#tileselect, div.widget textarea, div.widget input[type='text'], div.widget select {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 5px;
+    padding: 0px;
+    background-color: rgba(255,255,255,.3);
+    border: 1px solid rgba(255,255,255,.5);
+    -webkit-border-radius: 6px;    
+}
+div.widget input[type='text'], div.widget select {
+    height: 15px;
+    width: 128px;
+    padding: 4px;
+    margin-bottom: 5px;
+    color: white;
+    font-family: "Maven Pro";
+    font-size: 11px;
+}
+div.widget input[type='text'].short {
+    width: 42px;
+}
+div.widget label.short {
+    width: 20px;
+    margin-left: 10px;
+}
+
+div.widget textarea {
+    width: 100%;
+    padding: 5px;
+    color: white;
+}
+
+#tileselect.inactive {
+    opacity: .2;
+}
+
+#tileselector, #objectselector, #decoselector {
+    z-index: 1001;
+    min-width: 220px;
+    max-width: 230px;
+    border: 5px solid rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.2);
+    -webkit-border-radius: 8px;
+    position: absolute;
+    padding: 5px;
+}
+#tileselector div.tile, #objectselector div.tile, #decoselector div.tile {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    background-color: rgba(255,255,255,.3);
+    border: 1px solid rgba(255,255,255,.5);
+    -webkit-border-radius: 6px;    
+}
+
+#tileselector div.tile:hover, #objectselector div.tile:hover, #decoselector div.tile:hover {
+  background-color: rgba(128,190,255,.2);
+  cursor: pointer;
+}
+
+
+div.widget div.toggle:hover, div.widget input[type='button']:hover  {
+    background-color: rgba(128,190,255,.2);
+}
+
+#palette div.active {
+    background-color: rgba(128,190,255,.5);
+}
+#palette div.handle{
+    border: none;
+    background-color: rgba(255,255,255,.3);
+    -webkit-border-radius: 6px;
+    margin: 0px 0px 5px 0px;
+    width: 100px;
+    padding: 0px;
+    height: 10px;
+    -webkit-border-radius: 3px;
+    cursor: move;
+    font-family: "Maven Pro";
+    font-size: 9px;
+    color: #aaa;
+    text-align: center;
+}
+
+#palette div.handle:hover {
+    background-color: rgba(255,255,255,.7);
+}

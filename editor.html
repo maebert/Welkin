@@ -1,0 +1,169 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Test</title>
+  <meta name="description" content="Pomodoro Based Task Management">
+  <meta name="author" content="Manuel Ebert">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="Lib/jquery-1.5.1.min.js"></script>
+  <script src="Lib/jquery-ui.min.js"></script>
+  <script src="Scripts/init.js"></script>
+  <link rel="stylesheet" href="Data/ipad.css">
+
+</head>
+
+<body>
+
+  <div id="container">
+  </div>
+
+  <div class="widget" id="console" style="display: none; left: 200px;"><textarea></textarea><br /><input type="button" onclick="$('#console').toggle('fast');" value="Close"/ ></div>
+
+  <div class="widget" id="levelprops" style="display: none; left: 200px;">
+  <label for="level_name">Name:</label><input type="text" id="level_name" name="level_name"/>
+  <label for="level_theme">Theme:</label><input type="text" id="level_theme" name="level_theme"  />
+  <label for="level_next">Next Lvl:</label><select id="level_next" name="level_next"></select>
+  <label for="level_width" >W:</label><input type="text" id="level_width" name="level_width" class="short" />
+  <label for="level_height" class="short">H:</label><input type="text" id="level_height" name="level_height" class="short" />
+  <label for="level_best">Best:</label><input type="text" id="level_best" name="level_best" class="short" />
+  <br /><input type="button" onclick="$('#levelprops').hide('fast');" value="Close"/ >&nbsp;<input type="button" onclick="editor.save_properties();" value="Save"/ ></div>
+
+  <div class="widget" id="levelload" style="display: none; left: 200px;">
+  <label for="level_load">Level:</label><select id="level_load" name="level_load"></select>
+  <br /><input type="button" onclick="$('#levelload').hide('fast');" value="Cancel"/ >&nbsp;<input type="button" onclick="editor.load();" value="Load"/ ></div>
+
+
+
+  <div class="widget" id="objectprops" style="display: none; left: 200px;">
+  <label for="obj_sprite">Sprite:</label><input type="text" id="obj_sprite" name="obj_sprite"/>
+  <label for="obj_moves">Moves:</label><input type="text" id="obj_moves" name="obj_moves"  />
+  <label for="obj_x" >X:</label><input type="text" id="obj_x" name="obj_x" class="short" />
+  <label for="obj_y" class="short">Y:</label><input type="text" id="obj_y" name="obj_y" class="short" />
+  <br /><input type="button" onclick="$('#objectprops').hide('fast');" value="Close"/ >&nbsp;<input type="button" onclick="editor.save_obj_properties();" value="Save"/ ></div>
+
+
+  <div class="widget" id="palette">
+    <div class="handle">Editor</div>
+    <div id="palette_inner">
+    <div class="toggle" id="button_new" onclick="editor.new()">New...</div>
+    <div class="toggle" id="button_load" onclick="$('#levelload').show('fast');">Load...</div>
+    <div class="toggle" id="button_props" onclick="editor.show_props();">Edit Level...</div>
+    <div class="toggle" id="button_save" onclick="$('#console textarea').val(editor.save()); $('#console').show('fast');">Save</div>
+    <hr />
+    <div class="toggle" id="button_wall" onclick="editor.set_mode('wall')">Place Walls</div>
+    <div class="toggle" id="button_floor"onclick="editor.set_mode('floor')">Place Tile</div>
+    <div class="toggle" id="button_object"onclick="editor.set_mode('object')">Place Deco</div>
+    <div class="toggle" id="button_monster"onclick="editor.set_mode('monster')">Place Monsters</div>
+    <div id="tileselect"></div>
+    <div id="tileselector" style="display: none;"></div>
+    <div id="objectselector" style="display: none;"></div>
+    <div id="decoselector" style="display: none;"></div>
+    <hr />
+    <div class="toggle" id="button_removefloor"onclick="editor.set_mode('removefloor')">Delete Tiles</div>
+    <div class="toggle" id="button_removeobjects"onclick="editor.set_mode('removeobjects')">Delete Deco</div>
+    <div class="toggle" id="button_editobj"onclick="editor.set_mode('editobj')">Edit Object...</div>
+    <div class="toggle" id="button_function" onclick="editor.set_mode('function')">Mark Passable</div>
+    <hr />
+    </div>
+    <div class="toggle play" id="button_play" onclick="editor.set_mode('play')">PLAY!</div>
+    <div id="debug" class="debug"></div>
+  </div>
+
+  <script>
+      $(window).load(function() {
+        all_scripts.push("Scripts/editor.js");
+        load_scripts(all_scripts, init_editor);
+      });
+      
+      function select_tile(tileIndex) {
+        $("#tileselector").hide('fast');
+        bgpos = graphics.get_tile_position(tileIndex);
+        document.getElementById("tileselect").style.backgroundPosition = -bgpos.x + "px -"+bgpos.y+"px";
+        editor.current_tile = tileIndex;      
+      }
+
+      function select_object(objectHandle) {
+        $("#objectselector").hide('fast');
+        var bgpos = graphics.get_tile_position(game.theme.objects[objectHandle].tile);
+        document.getElementById("tileselect").style.backgroundPosition = -bgpos.x + "px -"+bgpos.y+"px";
+        editor.current_object = objectHandle;      
+      }
+      
+      function select_deco(decoIndex) {
+        $("#decoselector").hide('fast');
+        bgpos = graphics.get_tile_position(game.theme.deco[decoIndex].tile);
+        document.getElementById("tileselect").style.backgroundPosition = -bgpos.x + "px -"+bgpos.y+"px";
+        editor.current_deco = decoIndex;
+      }
+
+      function init_editor() {
+          loaders.init(levels.easy2, function () {});
+          $("#palette").draggable({handle: "div.handle", containment: "document"});
+          $("div.widget").draggable();
+          $("#console").draggable();
+          
+          $("#objectselector").draggable();
+
+          document.getElementById("tileselect").style.backgroundImage = "url("+game.theme.tileset.src+")";
+
+
+            for (lvl in levels){
+               $('<option/>').val(lvl).html(levels[lvl].name + " ("+lvl+")").appendTo('#level_next');
+               $('<option/>').val(lvl).html(levels[lvl].name + " ("+lvl+")").appendTo('#level_load');
+            }
+          
+
+          for (t in game.theme.tiles) {
+              var bgpos = graphics.get_tile_position(game.theme.tiles[t]);
+              $("#tileselector").append("<div class='tile' onclick='select_tile("+game.theme.tiles[t]+");' style='background-image: url("+game.theme.tileset.src+"); background-position: -"+bgpos.x + "px -"+bgpos.y+"px;'></div>");
+          }
+          for (t in game.theme.objects) {
+              var bgpos = graphics.get_tile_position(game.theme.objects[t].tile);
+              $("#objectselector").append("<div class='tile' onclick='select_object(\""+t+"\");' style='background-image: url("+game.theme.tileset.src+"); background-position: -"+bgpos.x + "px -"+bgpos.y+"px;'></div>");
+          }
+          for (t in game.theme.deco) {
+              var bgpos = graphics.get_tile_position(game.theme.deco[t].tile);
+              $("#decoselector").append("<div class='tile' onclick='select_deco(\""+t+"\");' style='background-image: url("+game.theme.tileset.src+"); background-position: -"+bgpos.x + "px -"+bgpos.y+"px;'></div>");
+          }
+          
+          
+          $("#palette div.handle").dblclick(function () {
+            $("#palette_inner").toggle('fast');
+          });
+          $("#tileselect").click(function () {
+            if (editor.mode == "floor")
+              $("#tileselector").toggle('fast');
+            else if (editor.mode == "monster")
+              $("#objectselector").toggle('fast');
+            else if (editor.mode == "object")
+              $("#decoselector").toggle('fast');
+          });
+      };
+      
+      
+      function draw_text(x, y, t) {
+        var context = graphics.layers.highlight.getContext("2d");
+        var dest = helpers.coords_to_px(x, y);
+        context.font = "30pt Arial";
+        context.fillStyle = "#ffaa55";
+        context.fillText(t, dest.x + 35, dest.y + 70);
+      }
+      
+      function ds() {
+        for (tile in game.level.tiles) {
+            target = helpers.tile_index_to_coords(tile);
+            draw_text(target.column, target.row, helpers.distance(game.player.x, game.player.y, target.column, target.row));
+        }
+      }
+  </script>
+
+</body>
+</html>
