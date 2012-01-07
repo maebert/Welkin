@@ -238,7 +238,8 @@ editor.set_mode = function(mode, arg) {
         $(game.iPane).bind('click', function(event, info){
               var r = ui.detect_field(event.layerX, event.layerY);
               game.level.tiles[r.tileIndex] = {tile: editor.current_tile, "function": game.theme.tile_functions[game.theme.tiles.indexOf(editor.current_tile)]};
-              graphics.draw(graphics.layers.floor, r.column, r.row, editor.current_tile);
+              graphics.clear(graphics.layers.floor)
+              graphics.draw_base();
         });
     } else if (mode == "object") {
         $("#tileselect").removeClass("inactive");

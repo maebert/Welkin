@@ -137,7 +137,7 @@ game.Object = function(template) {
         var that = this;
         $(this.div).animate({
             top: dest.y,
-            left: dest.x
+            left: dest.x,
             }, 1000, function() {
                 if (that.move_anim_steps > 0) $(that.div).destroy(); 
                 // if moving up, change z layer now

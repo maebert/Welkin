@@ -62,8 +62,24 @@ graphics.get_tile_position = function(tileIndex) {
 * @version 0.1
 */
 graphics.draw_base = function() {
-    var context = graphics.layers.floor.getContext("2d");
+    // Get all tile indices
+    var st = []
     for (tileIndex in game.level.tiles) {
+        if (game.level.tiles.hasOwnProperty(tileIndex)) {
+            st.push(parseInt(tileIndex));
+        }
+    }
+    // Sort according to row!
+    st.sort(function(a,b){
+        c1 = helpers.tile_index_to_coords(a);
+        c2 = helpers.tile_index_to_coords(b);
+        return c1.row - c2.row;
+    });
+
+    var context = graphics.layers.floor.getContext("2d");
+
+    for (i in st) {
+        tileIndex = st[i];
         r = helpers.tile_index_to_coords(tileIndex);
         graphics.draw(graphics.layers.floor, r.column, r.row, game.level.tiles[tileIndex].tile);
     }
@@ -294,7 +310,7 @@ graphics.highlight_field = function (options) {
     
     var x = options.column * .75 * game.theme.floor_width;
     var dx = game.theme.floor_width * .25;
-    var y =  options.row * game.theme.floor_height / 2;
+    var y =  options.row * game.theme.floor_height / 2 -2;
     var dy = game.theme.floor_height * .5;
 
     if (options.clear == "rect") {
@@ -340,7 +356,7 @@ graphics.highlight_moves = function() {
     for (ind in adjacent) {
         loc = adjacent[ind];
         if (game.is_valid_move(loc.column, loc.row)) {
-            graphics.highlight_field({column: loc.column, row: loc.row, clear: "none", lineWidth: 2, strokeStyle: "rgba(0,0,255,.2)", fillStyle: "rgba(255,255,255,.4)"});
+            graphics.highlight_field({column: loc.column, row: loc.row, clear: "none", lineWidth: 4, strokeStyle: "rgba(0,0,255,.2)", fillStyle: "rgba(255,255,255,.4)"});
         }            
     }        
 }

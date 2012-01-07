@@ -89,8 +89,8 @@ helpers.get_adjacent = function(column, row) {
 * @version 0.1
 */
 helpers.coords_to_px = function(column, row) {
-    var dest_x = column * .75 * game.theme.floor_width;
-    var dest_y = row * game.theme.floor_height * .5  - (game.theme.tile_height - game.theme.floor_height);
+    var dest_x = column * .75 * game.theme.floor_width - game.theme.padding_left;
+    var dest_y = row * game.theme.floor_height * .5  - (game.theme.tile_height - game.theme.floor_height) + game.theme.padding_bottom;
     return {x: dest_x, y: dest_y};
 }
 
