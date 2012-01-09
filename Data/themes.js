@@ -73,6 +73,9 @@ var themes = {
             {"tile":  4, "z": 0},
             {"tile":  6, "z": 0},
             {"tile":  7, "z": 0},
+            {"tile":  8, "z": 0},
+            {"tile":  9, "z": 0},
+            {"tile":  10, "z": 0},
             {"tile": 30, "z": 0},
         ],
         anim: {
