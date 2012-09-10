@@ -15,8 +15,8 @@ var graphics = {};
 * @function
 * @version 0.1
 */
-graphics.draw = function(canvas, column, row, tileIndex) {
-    var context = canvas.getContext("2d");
+graphics.draw = function(buffer, column, row, tileIndex) {
+    context = buffer.getContext("2d");
     // convert coordinates to pixels
     var dest = helpers.coords_to_px(column, row)
     var source = graphics.get_tile_position(tileIndex);
@@ -116,8 +116,6 @@ graphics.draw_objects = function(objects) {
 }
 
 
-
-
 /** Draws a wall to the proper object canvas
 * 
 * @param {Number} wall_index Index of the wall as saved in level.walls
@@ -182,8 +180,8 @@ graphics.anim = function (column, row, name) {
 * @version 0.1
 */
 graphics.draw_pole = function (column, row, side) {
-    layer = graphics.layers.object_layers[row];
-    graphics.draw(layer, column, row, game.theme.wall_corners[side]);
+    buffer = graphics.layers.object_layers[row];
+    graphics.draw(buffer, column, row, game.theme.wall_corners[side]);
 }
 
 /** Draws all walls of a level. 
@@ -232,8 +230,16 @@ graphics.redraw = function() {
         layer = graphics.layers.object_layers[z];
         graphics.clear(layer);
     }
+    graphics.draw_base();
     graphics.draw_walls(game.level.walls);
     graphics.draw_objects(game.level.objects)
+}
+
+graphics.assemble = function() {
+    for (z in graphics.layers.object_layers) {
+    
+    }
+
 }
 
 /** Draws all elements of a level (floor, walls, objects)
@@ -316,7 +322,7 @@ graphics.highlight_field = function (options) {
     if (options.clear == "rect") {
         var cl = graphics.debug_clear;
         context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(cl[0], cl[1], cl[2], cl[3]);        
+        context.clearRect(cl[0], cl[1], cl[2], cl[3]);
     }
     
     context.beginPath();
@@ -356,7 +362,7 @@ graphics.highlight_moves = function() {
     for (ind in adjacent) {
         loc = adjacent[ind];
         if (game.is_valid_move(loc.column, loc.row)) {
-            graphics.highlight_field({column: loc.column, row: loc.row, clear: "none", lineWidth: 4, strokeStyle: "rgba(0,0,255,.2)", fillStyle: "rgba(255,255,255,.4)"});
+            graphics.highlight_field({column: loc.column, row: loc.row, clear:"none", lineWidth: 4, strokeStyle: "rgba(0,0,255,.2)", fillStyle: "rgba(255,255,255,.4)"});
         }            
     }        
 }
@@ -378,13 +384,15 @@ graphics.create_layer = function (options) {
         id: ""        
     }        
     var options = $.extend({}, defaults, options)
+    if (options.id != "") {
+        layer = document.createElement('canvas');
+        layer.id = options.id;
+        layer.style.zIndex = options.zIndex;
+        layer.width = graphics.layer_width;
+        layer.height = graphics.layer_height;
+        document.getElementById("container").appendChild(layer);        
+    }
 
-    layer = document.createElement('canvas');
-    layer.id = options.id;
-    layer.style.zIndex = options.zIndex;
-    layer.width = graphics.layer_width;
-    layer.height = graphics.layer_height;
-    document.getElementById("container").appendChild(layer);
     return layer;
 }
 

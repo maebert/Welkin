@@ -49,9 +49,11 @@ loaders.init = function (level, callback) {
     
         // create layers
         graphics.layers = {}
+        graphics.layers.game          = graphics.create_layer({id: "game_layer"});
+        graphics.ctx                  = graphics.layers.game.getContext("2d");
         graphics.layers.floor         = graphics.create_layer({zIndex: -2, id: "floor"});
-        graphics.layers.highlight     = graphics.create_layer({zIndex: -1, id: "highlight"});
         graphics.layers.object_layers = graphics.create_object_layers();
+        graphics.layers.highlight     = graphics.create_layer({zIndex: -1, id: "highlight"});
         game.iPane                    = graphics.create_layer({zIndex: 99, id: "interactionPane"});
 
         graphics.draw_level();
